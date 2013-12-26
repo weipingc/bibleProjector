@@ -1,0 +1,85 @@
+<polymer-element name="verse-selector">
+<template>
+  <style>
+    .tableDiv {
+      display: table;
+    }
+    .tableRowDiv {
+      display: table-row;
+    }
+    .tableCellDiv {
+      display: table-cell;
+    }
+    
+    .anchorFiller {
+      display: table-cell;
+      cursor: default;
+      width: 0.07em;
+    }
+    .anchorCell {
+      display: table-cell;
+      cursor: default;
+      border: 1px;
+      border-color: white;
+      border-style: solid;
+      padding: 0.1em;
+    }
+    .anchorCell:hover {
+      border: 1px;
+      border-color: black;
+      border-style: solid;
+    }
+    .volTextRightAlign {
+      text-align: right;
+    }
+    
+    .selectedCell {
+      text-shadow: 0 0 1px #000,
+             0 0 10px rgba(199, 107, 107, 0.8);
+      background-color: #F0F0F0;
+      font: bolder;
+      border: 1px;
+      border-color: black;
+      border-style: solid;
+    }
+    
+    fieldset {
+      display: block;
+      -webkit-margin-start: 2px;
+      -webkit-margin-end: 10px;
+      -webkit-padding-before: 0em;
+      -webkit-padding-start: 0.3em;
+      -webkit-padding-end: 0em;
+      -webkit-padding-after: 0em;
+      border: 2px groove threedface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      min-width: -webkit-min-content;
+    }
+  </style>
+  
+  <fieldset>
+    <legend><b>Volumes</b></legend>
+    <div class="tableDiv" id="volAnchorLines">
+      <template repeat="{{anchorLine in volAnchorLines}}">
+        <div class="tableRowDiv">
+          <template repeat="{{anchor in anchorLine}}">
+            <div class="anchorFiller"></div>
+            <div class="anchorCell {{anchor.selectedClass}}" id="vol.{{anchor.id}}"
+              on-click="{{volAnchorClicked}}">
+              <template if="{{anchor.id<10 }}">&nbsp;&nbsp;</template>{{anchor.text}}
+            </div>
+          </template>
+          <div class="anchorFiller"></div>
+        </div>
+      </template>
+    </div>
+  </fieldset>
+  
+</template>
+
+<script src="verse-selector.js"></script>
+</polymer-element>

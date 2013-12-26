@@ -1,0 +1,40 @@
+<polymer-element name="lang-selector" attributes="secondsToStart">
+<template>
+  <style>
+    #langSelector {
+      font-size: 1.5em; 
+      margin-left: 2em;
+    }
+    select {
+      font-size: 14pt;
+      margin-left: 2em;
+    }
+    button {
+      font-size: 14pt;
+    }
+  </style>
+  
+  <polymer-localstorage id="storage" name="bible-projector-language-selection"></polymer-localstorage>
+  <div id="langSelector">
+    <p><label for="langSelect">Please select Primary language:</label></p>
+    <select id="langSelect" size="2" on-dblclick="{{selectLang}}">
+      <template repeat="{{langInfo in langInfoList}}">
+        <option value="{{langInfo.value}}" selected?="{{langInfo.selected}}">{{langInfo.label}}</option>
+      </template>
+    </select>
+    <br>
+    <br>
+    <input type="checkbox" id="rememberChk" checked="{{rememberMySelection}}" checked?="{{rememberMySelection}}">
+    <label for="rememberChk">Remember my selection</label>
+    <br>
+    <button id="okBtn" hidden?="{{!started}}" autofocus="autofocus" on-click="{{selectLang}}"> O K </button>
+    <p hidden?="{{started}}">Will start automatically in <span id="secondsToStartCounter">{{secondsToStart}}</span> seconds ...... 
+      <button id="startBtn" autofocus="autofocus" on-click="{{selectLang}}"> Start Now </button>
+    </p>
+  </div>
+
+</template>
+
+<script src="lang-selector.js"></script>
+
+</polymer-element>

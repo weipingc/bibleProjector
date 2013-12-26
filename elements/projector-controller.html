@@ -1,0 +1,92 @@
+<polymer-element name="projector-controller">
+<template>
+  <link rel="stylesheet" type="text/css" href="../app.css">
+  <style>
+    fieldset {
+      display: block;
+      -webkit-margin-start: 2px;
+      -webkit-margin-end: 10px;
+      -webkit-padding-before: 0em;
+      -webkit-padding-start: 0.3em;
+      -webkit-padding-end: 0em;
+      -webkit-padding-after: 0em;
+      border: 2px groove threedface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      min-width: -webkit-min-content;
+      height: 100%;
+    }
+    
+    .filler {
+      margin-left: 3px;
+      margin-right: 3px;
+    }
+    .less-padding {
+      padding-left: 1px;
+      padding-right: 1px;
+    }
+  </style>
+  
+  <polymer-localstorage id="storage" name="bible-projector-projector-config"></polymer-localstorage>
+  <fieldset>
+    <legend><b>Projector</b> ({{previewTitle}})</legend>
+
+    <input type="checkbox" id="chkVersionCUN" checked="{{versionCUN}}}" on-change="{{versionSelectionChanged}}"
+      title="Chinese Union Version">
+    <label for="chkVersionCUN" title="Chinese Union Version">CUN</label>
+    <span class="filler"></span>
+    <input type="checkbox" id="chkVersionKJV" checked="{{versionKJV}}}" on-change="{{versionSelectionChanged}}"
+      title="King James Version">
+    <label for="chkVersionKJV" title="King James Version">KJV</label>
+    <span class="filler"></span>
+    <label for="pageSizeSelect">&nbsp;PerPg</label>
+    <select id="pageSizeSelect" on-change="{{pageSizeSelectionChanged}}">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3" selected>3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
+    </select>
+    <span class="filler"></span>
+    <label for="bgSelect">&nbsp;BG</label>
+    <select id="bgSelect" on-change="{{bgSelectionChanged}}">
+      <template repeat="{{ bgSetting in backgroundSettings}}">
+        <option value="{{bgSetting.value}}" selected?="{{bgSetting.selected}}">{{bgSetting.label}}</option>
+      </template>
+    </select>
+    <span class="filler"></span>
+    <input type="button" disabled?="{{projectorClosed}}" value="Apply" id="goBtn" title="Apply setting" on-click="{{applySetting}}" class="emphasizedBtn less-padding">
+    <span class="filler"></span>
+    <input type="checkbox" id="chkSyncPreview" checked="{{syncPreview}}"
+      title="Synchronize preview">
+    <label for="chkSyncPreview" title="Synchronize preview">Sync</label>
+    <input type="button" disabled?="{{projectorClosed}}" value="&lt;" id="prevPageBtn" title="Previous page" on-click="{{viewPreviousPage}}">
+    <input type="button" disabled?="{{projectorClosed}}" value="&gt;" id="nextPageBtn" title="Next page"     on-click="{{viewNextPage}}">
+    <span class="filler"></span>
+    <input type="button" disabled?="{{projectorClosed}}" value="A" id="smallerFontBtn"
+      title="Smaller font" style="font-size:80%;"  on-click="{{smallerFont}}">
+    <input type="button" disabled?="{{projectorClosed}}" value="A" id="largerFontBtn"
+      title="Larger font"  style="font-size:120%;" on-click="{{largerFont}}">
+    <span class="filler"></span>
+    <input type="button" disabled?="{{projectorClosed}}" value="Save" id="saveBtn"  on-click="{{bookmarkVerse}}"
+      title="Bookmark the verse" class="less-padding">
+    <input type="button" value="Close" id="closeBtn" on-click="{{closeProjector}}" title="Close the projector window"
+      class="less-padding">
+
+  </fieldset>
+</template>
+
+  <script src="projector-controller.js"></script>
+</polymer-element>

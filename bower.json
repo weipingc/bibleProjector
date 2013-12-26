@@ -1,0 +1,7 @@
+{
+	"name": "BibilePolymer",
+	"version": "1.0.0",
+	"dependencies": {
+    "polymer": "0.1.1"
+	}
+}

@@ -1,0 +1,42 @@
+<polymer-element name="verse-previewer">
+<template>
+  <style>
+    fieldset {
+      margin-top: 5px;
+      display: block;
+      -webkit-margin-start: 2px;
+      -webkit-margin-end: 10px;
+      -webkit-padding-before: 0em;
+      -webkit-padding-start: 0.3em;
+      -webkit-padding-end: 0em;
+      -webkit-padding-after: 0em;
+      border: 2px groove threedface;
+      border-image-source: initial;
+      border-image-slice: initial;
+      border-image-width: initial;
+      border-image-outset: initial;
+      border-image-repeat: initial;
+      width: 45em;
+    }
+  </style>
+  
+  <fieldset id="textFieldSet">
+    <template repeat="{{chapInfo4Disp in chapInfo4DispList}}">
+      <ul>
+      <template repeat="{{verseInfo4Disp in chapInfo4Disp.verseInfo4DispList}}">
+        <li><sup style="font-size:70%;">{{verseInfo4Disp.verseNum}}</sup> 
+        <template if="{{verseInfo4Disp.isFirst}}">
+          {{verseInfo4Disp.verseText}}
+        </template>
+        <template if="{{!verseInfo4Disp.isFirst}}">
+          <a id="{{verseInfo4Disp.verseSub}}" href="" on-click="{{verseClicked}}">{{verseInfo4Disp.verseText}}</a>
+        </template>
+        </li>
+      </template>
+      </ul></p>
+    </template>
+  </fieldset>
+</template>
+
+  <script src="verse-previewer.js"></script>
+</polymer-element>

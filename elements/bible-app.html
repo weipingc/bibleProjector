@@ -1,0 +1,66 @@
+<link rel="import" href="lang-selector.html">
+<link rel="import" href="quick-input.html">
+<link rel="import" href="projector-controller.html">
+<link rel="import" href="previewer-controller.html">
+<link rel="import" href="verse-selector.html">
+<link rel="import" href="verse-previewer.html">
+<link rel="import" href="bookmark-mgr.html">
+
+<polymer-element name="bible-app">
+<template>
+  <style>
+    bookmark-mgr {
+      position: relative;
+      top: -2px;
+    }
+  </style>
+  
+<lang-selector id="langSelector" hidden?="{{langSelectorHidden}}" secondsToStart="60"
+  on-lang-select="{{selectLang}}"></lang-selector>
+
+<div id="mainDiv" hidden?="{{mainDivHidden}}">
+  <table>
+      <tr><td colspan="2" width="100%">
+        <projector-controller id="projectController" on-project-verse="{{projectVerse}}"
+          on-bookmark-verse="{{bookmarkVerse}}" on-preview-verse="{{previewVerse}}"></projector-controller>
+      </td></tr>
+      
+    <tr>
+      <td valign="top">
+        <verse-selector id="verseSelector" on-volume-selection="{{volumeSelected}}"></verse-selector>
+      </td>
+      <td valign="top">
+        <bookmark-mgr id="bookmarkMgr" on-preview-verse="{{previewVerse}}"
+          on-project-verse="{{projectVerse}}"></bookmark-mgr>
+      </td>
+    </tr>
+  </table>
+  <table>
+      <tr>
+        <td width="46%">
+          <quick-input  id="quickInput"  on-preview-verse="{{previewVerse}}"
+            on-bookmark-verse="{{bookmarkVerse}}"></quick-input>
+        </td>
+        <td width="46%">
+          <previewer-controller id="previewerController" on-project-verse="{{projectVerse}}"
+            on-display-verse="{{displayVerse}}" on-bookmark-verse="{{bookmarkVerse}}">
+          </previewer-controller>
+        </td>
+        <td width="8%" valign="bottom">
+            <a href="../help.html" title="Open help page" target="BiblePolymerHelp" style="margin-left: 8px;">Help</a>
+            <br>
+            <button on-click="{{allowUserSelectLang}}" title="Switch primary language">Lang</button>
+        </td>
+      </tr>
+      
+      <tr><td colspan="3" width="100%">
+        <verse-previewer id="versePreviewer" on-preview-verse="{{previewVerse}}"></verse-previewer>
+      </td></tr>
+  </table>
+  
+</div> <!-- End mainDiv -->
+</template>
+
+  <script src="bible-app.js"></script>
+
+</polymer-element>
