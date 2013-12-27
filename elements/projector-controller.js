@@ -88,14 +88,18 @@
 
     closeProjector: function( evt ) {
       if( this.isProjectorOpen() ) {
-        this.projWin.close();
-        this.projWin = -1
-        this.projectorClosed = true;
-        this.$.closeBtn.value = 'Open';
-        this.$.closeBtn.title = 'Open the projector window';
+        this._afterProjWinClosed();
       } else {
         this._projectVerse();
       }
+    },
+    
+    _afterProjWinClosed: function() {
+      this.projWin.close();
+      this.projWin = -1
+      this.projectorClosed = true;
+      this.$.closeBtn.value = 'Open';
+      this.$.closeBtn.title = 'Open the projector window';
     },
 
     projectVerse: function( verseEvent ) {
@@ -151,10 +155,25 @@
       this.$.closeBtn.value = 'Close';
       this.$.closeBtn.title = 'Close the projector window';
 
+      var projectorControllerThis = this;
+      var timer = window.setInterval( function() {
+          if( projectorControllerThis.checkProjectWin() ) {
+            window.clearInterval( timer );
+          }
+        }, 500
+      );
+      
       if( this.syncPreview ) {
         var evt = new VerseEvent( this.nVolume, this.startVerseSub );
         this.fire( 'preview-verse', {verseEvent: evt} );
       }
+    },
+    
+    checkProjectWin: function() {
+      if( !this.isProjectorOpen() ) {
+        this._afterProjWinClosed();
+      }
+      return this.projectorClosed;
     },
 
     getVerseTextForDisplay: function( versionList, borderColor ) {

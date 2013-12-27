@@ -19,12 +19,7 @@
         this.langInfoList.forEach( function( langInfo ) {
           langInfo.selected = langInfo.value == selectedLang;
         });
-          langSelectorThis._selectLang();
-          /*
-        timer = window.setInterval( function() {
-          window.clearInterval( timer );
-        }, 500 );
-        */
+        langSelectorThis._selectLang();
       } else {
         var secondsToStart = this.secondsToStart;
         var secondsToStartCounter = this.$.secondsToStartCounter;
@@ -39,7 +34,8 @@
     },
 
     selectTimeout: function() {
-      this.$.startBtn.click();
+      if( !started )
+        this.$.startBtn.click();
     },
 
     selectLang: function( evt ) {

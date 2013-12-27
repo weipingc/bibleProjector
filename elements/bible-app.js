@@ -10,6 +10,14 @@
       var langSelectEvt = evt.detail;
       bibleLang = langSelectEvt.lang;
       setDefaultVer();
+      var langSelectorThis = this;
+      var timer = window.setInterval( function() {
+          window.clearInterval( timer );
+          langSelectorThis._selectLang( langSelectEvt );
+        }, 1 );
+    },
+    
+    _selectLang: function( langSelectEvt ) {
       this.$.verseSelector.init();
       this.$.projectController.defaultVerSelected();
       this.$.bookmarkMgr.defaultVerSelected();
