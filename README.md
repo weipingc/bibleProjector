@@ -1,8 +1,6 @@
----------------------------------------------------------------------------------------
 What it does:
   Bible Projector is a browser based tool for projecting Bible verses.
 
----------------------------------------------------------------------------------------
 How to run:
   Start a browser, open the index.html file.
   After selecting bible volume/chapter/verse, you can click one of the "Project" buttons
@@ -12,7 +10,6 @@ How to run:
   Clicking the Help link (it is at right to the Preview control) will the Help window, you
   read detailed instructions there.
 
----------------------------------------------------------------------------------------
 System requirements:
 
   Google Chrome
@@ -24,6 +21,10 @@ System requirements:
   Mozilla FireFox
     Version 26 or newer.
 
----------------------------------------------------------------------------------------
 Technical Notes:
-  - Polymer (http://polymer-project.org/) is used.
+  Polymer(http://polymer-project.org/) is used.
+
+Credentials
+  Weiping Chen(weiping.chen@gmail.com)
+  This program is based on the works of Mr. Weiheng Xi, Mr. Spring (chunnan.hung@gmail.com)
+  and Paul Chang(paul.cmchang@gmail.com)

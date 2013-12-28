@@ -1,7 +1,6 @@
 (function() {
   Polymer('previewer-controller', {
     pageSize: 6,
-    previewSource: '',
     nVolume: 1,
     startVerseSub: 0,
     indOfFirstVerseOfThisVol: 0,
@@ -17,7 +16,6 @@
     previewVerse: function( verseEvent ) {
       this.nVolume = verseEvent.volume;
       this.startVerseSub = verseEvent.verseSub;
-      this.previewSource = verseEvent.source;
       this._previewVerse( verseEvent );
     },
 
@@ -31,7 +29,7 @@
     },
 
     defaultVerSelected: function() {
-      var verseEvent = new VerseEvent( this.nVolume, this.startVerseSub, this.previewSource );
+      var verseEvent = new VerseEvent( this.nVolume, this.startVerseSub );
       this._previewVerse( verseEvent );;
     },
 
@@ -79,7 +77,7 @@
     },
 
     projectVerse: function() {
-      var verseEvent = new VerseEvent( this.nVolume, this.startVerseSub, 'Preview' );
+      var verseEvent = new VerseEvent( this.nVolume, this.startVerseSub );
       this.fire( 'project-verse', {verseEvent: verseEvent} );
     }
   });

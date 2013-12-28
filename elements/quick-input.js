@@ -99,7 +99,7 @@
       this.nChapter = nChapter;
       this.nVerse = nVerse;
 
-      var evt = new VerseEvent( this.nVolume, this.startVerseSub, 'Input' );
+      var evt = new VerseEvent( this.nVolume, this.startVerseSub );
       this.fire( 'preview-verse', {verseEvent: evt} );
     },
 

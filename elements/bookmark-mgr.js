@@ -23,7 +23,7 @@
     projectBookmark: function( evt ) {
       var selectedBM = this.getSelectedBookmark();
       if( selectedBM != null ) {
-        var evt = new VerseEvent( selectedBM.volume, selectedBM.verseSub, 'Bookmark', selectedBM.label );
+        var evt = new VerseEvent( selectedBM.volume, selectedBM.verseSub, selectedBM.label );
         this.fire( 'project-verse', {verseEvent: evt} );
       }
     },
@@ -59,7 +59,7 @@
     },
 
     _previewBookmark: function( bookmark ) {
-      var evt = new VerseEvent( bookmark.volume, bookmark.verseSub, 'Bookmark', bookmark.label );
+      var evt = new VerseEvent( bookmark.volume, bookmark.verseSub, bookmark.label );
       this.fire( 'preview-verse', {verseEvent: evt} );
     },
 

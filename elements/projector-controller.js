@@ -6,17 +6,16 @@
     bgFile: 'black',
     fontSize: 40,
     previewTitle: '<closed>',
-    previewSource: '',
     nVolume: 1,
     startVerseSub: 0,
     indOfFirstVerseOfThisVol: 0,
     indOfLastVerseOfThisVol: 0,
     projWin: -1,
     projectorClosed: true,
+    
     versionCUN: true,   // Chinese Union Verseion
     versionKJV: true,
-    chkVersionCUNdisabled: false,
-    chkVersionKJVdisabled: false,
+    
     backgroundSettings: [
         {selected: false, label: 'Black', value: 'black'},
         {selected: false, label: 'White', value: 'white'},
@@ -39,21 +38,14 @@
     },
 
     ready: function() {
-      this.$.chkVersionCUN.bind( 'disabled?', this, 'chkVersionCUNdisabled' );
-      this.$.chkVersionKJV.bind( 'disabled?', this, 'chkVersionKJVdisabled' );
-
-      this.$.closeBtn.bind( 'disabled?', this, 'verseNotSet' );
-    },
-
-    enteredView: function() {
-      if( this.$.storage.value && this.$.storage.value.bgFile ) {
-        this.bgFile = this.$.storage.value.bgFile;
-        for( var ind=0; ind<this.backgroundSettings.length; ind++ ) {
-          if( this.backgroundSettings[ind].value == this.bgFile ) {
-              this.backgroundSettings[ind].selected = true;
-              break;
-          }
-        }
+      if( !this.$.storage.value || !this.$.storage.value.bgFile )
+        return;
+      this.bgFile = this.$.storage.value.bgFile;
+      for( var ind=0; ind<this.backgroundSettings.length; ind++ ) {
+        if( this.backgroundSettings[ind].value != this.bgFile )
+          continue;
+        this.backgroundSettings[ind].selected = true;
+        break;
       }
     },
 
@@ -74,28 +66,29 @@
         else
           this.$.chkVersionCUN.click();
       }
-      this.versionSelectionChanged();
 
       var projCtr = this;
       var timer = window.setInterval( function() {
         window.clearInterval( timer );
         if( chkNeedsClick )
           chkNeedsClick.click();
-        if( !projCtr.verseNotSet )
+        if( !projCtr.projectorClosed )
           projCtr._projectVerse();
-      }, 100 );
+      }, 1 );
     },
 
+    openProjector: function( evt ) {
+      this._projectVerse();
+    },
+    
     closeProjector: function( evt ) {
       if( this.isProjectorOpen() ) {
         this._afterProjWinClosed();
-      } else {
-        this._projectVerse();
       }
     },
     
     _afterProjWinClosed: function() {
-      this.projWin.close();
+      if( this.projWin.close ) this.projWin.close();
       this.projWin = -1
       this.projectorClosed = true;
       this.$.closeBtn.value = 'Open';
@@ -106,7 +99,6 @@
       this.nVolume = verseEvent.volume;
       this.verseNotSet = false;
       this.startVerseSub = verseEvent.verseSub;
-      this.previewSource = verseEvent.source;
 
       var cumNumOfChpNextVol = CumNumOfChpPerVol[this.nVolume];
       this.indOfFirstVerseOfThisVol = CumNumOfVrsPerChp[ CumNumOfChpPerVol[this.nVolume-1] ];
@@ -124,8 +116,9 @@
       var docObj = this.projWin.document;
       docObj.open();
       var foreColor = 'WHITE';
-      if( this.bgFile=='white' || this.bgFile.indexOf('bgBright')>=0 )
+      if( this.bgFile=='white' || this.bgFile.indexOf('bgBright')>=0 ) {
         foreColor = 'BLACK';
+      }
       var bg = 'background: url(images/' + this.bgFile + ') no-repeat center center fixed;';
       if( this.bgFile=='white' || this.bgFile=='black' )
         bg = 'background-color: ' + this.bgFile + ';';
@@ -141,7 +134,7 @@
         + '  -o-background-size: cover;\n'
         + '  background-size: cover;\n}\n'
         + '</style>\n'
-        + '</HEAD>\n<BODY>');
+        + '</HEAD>\n<BODY>\n');
       var versionList = new Array();
       if( this.versionCUN )
         versionList.push( 'CUN' );
@@ -176,12 +169,12 @@
       return this.projectorClosed;
     },
 
-    getVerseTextForDisplay: function( versionList, borderColor ) {
+    getVerseTextForDisplay: function( versionList, foreColor ) {
       var volume = this.nVolume;
       var pageSize = this.pageSize;
       var verseSub = this.startVerseSub;
       versionList = versionList || new Array( defaultVer );
-      borderColor = borderColor || 'black';
+      foreColor = foreColor || 'black';
       var cumNumOfChpNextVol = CumNumOfChpPerVol[volume];
       var indOfFirstVerseOfThisVol = CumNumOfVrsPerChp[ CumNumOfChpPerVol[volume-1] ];
       var indOfLastVerseOfThisVol  = CumNumOfVrsPerChp[cumNumOfChpNextVol] - 1;
@@ -212,11 +205,6 @@
       return verseTextBuf;
     },
 
-    versionSelectionChanged: function( evt ) {
-      this.chkVersionCUNdisabled = !this.versionKJV;
-      this.chkVersionKJVdisabled = !this.versionCUN;
-    },
-
     applySetting: function( evt ) {
       this._projectVerse();
     },
@@ -242,7 +230,6 @@
       } else {
         this.startVerseSub -= this.pageSize;
       }
-      this.previewSource = "Paging";
       this._projectVerse();
     },
 
@@ -258,7 +245,6 @@
         return;
       }
       this.startVerseSub += this.pageSize;
-      this.previewSource = "Paging";
       this._projectVerse();
     },
 

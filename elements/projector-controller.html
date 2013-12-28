@@ -34,11 +34,11 @@
   <fieldset>
     <legend><b>Projector</b> ({{previewTitle}})</legend>
 
-    <input type="checkbox" id="chkVersionCUN" checked="{{versionCUN}}}" on-change="{{versionSelectionChanged}}"
+    <input type="checkbox" id="chkVersionCUN" checked="{{versionCUN}}}" disabled?="{{!versionKJV}}"
       title="Chinese Union Version">
     <label for="chkVersionCUN" title="Chinese Union Version">CUN</label>
     <span class="filler"></span>
-    <input type="checkbox" id="chkVersionKJV" checked="{{versionKJV}}}" on-change="{{versionSelectionChanged}}"
+    <input type="checkbox" id="chkVersionKJV" checked="{{versionKJV}}}" disabled?="{{!versionCUN}}"
       title="King James Version">
     <label for="chkVersionKJV" title="King James Version">KJV</label>
     <span class="filler"></span>
@@ -82,8 +82,12 @@
     <span class="filler"></span>
     <input type="button" disabled?="{{projectorClosed}}" value="Save" id="saveBtn"  on-click="{{bookmarkVerse}}"
       title="Bookmark the verse" class="less-padding">
-    <input type="button" value="Close" id="closeBtn" on-click="{{closeProjector}}" title="Close the projector window"
-      class="less-padding">
+    <span>
+      <input style="min-width: 40px;" type="button" disabled?="{{verseNotSet}}" hidden?="{{!projectorClosed}}" value="Open"
+        id="openBtn"  on-click="{{openProjector}}"  title="Open the projector window" class="less-padding">
+      <input style="min-width: 40px;" type="button" disabled?="{{verseNotSet}}" hidden?="{{projectorClosed}}"  value="Close"
+        id="closeBtn" on-click="{{closeProjector}}" title="Close the projector window" class="less-padding">
+    </span>
 
   </fieldset>
 </template>
