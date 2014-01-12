@@ -12,10 +12,10 @@
     indOfLastVerseOfThisVol: 0,
     projWin: -1,
     projectorClosed: true,
-    
+
     versionCUN: true,   // Chinese Union Verseion
     versionKJV: true,
-    
+
     backgroundSettings: [
         {selected: false, label: 'Black', value: 'black'},
         {selected: false, label: 'White', value: 'white'},
@@ -80,13 +80,13 @@
     openProjector: function( evt ) {
       this._projectVerse();
     },
-    
+
     closeProjector: function( evt ) {
       if( this.isProjectorOpen() ) {
         this._afterProjWinClosed();
       }
     },
-    
+
     _afterProjWinClosed: function() {
       if( this.projWin.close ) this.projWin.close();
       this.projWin = -1
@@ -155,13 +155,13 @@
           }
         }, 500
       );
-      
+
       if( this.syncPreview ) {
         var evt = new VerseEvent( this.nVolume, this.startVerseSub );
         this.fire( 'preview-verse', {verseEvent: evt} );
       }
     },
-    
+
     checkProjectWin: function() {
       if( !this.isProjectorOpen() ) {
         this._afterProjWinClosed();
@@ -194,8 +194,8 @@
               verseTextBuf += '</P>';
             currChapter = nextChapter;
             verseTextBuf +=
-              '<P><span style="font-size:80%; margin: 2px; padding: 2px; border-style: ridge; border-width: 6px;">'
-              + getVolumeChapterText(volume, currChapter, version) + '</span>&nbsp;&nbsp; ';
+              '<P><b>&laquo;'
+              + getVolumeChapterText(volume, currChapter, version) + '&raquo;</b>&nbsp;&nbsp; ';
           }
           verseTextBuf +=  '&nbsp; <sup style="font-size:70%;">' + verseNum + '</sup> ' + verseText;
         }
