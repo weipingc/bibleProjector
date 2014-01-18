@@ -132,7 +132,13 @@
         + '  -webkit-background-size: cover;\n'
         + '  -moz-background-size: cover;\n'
         + '  -o-background-size: cover;\n'
-        + '  background-size: cover;\n}\n'
+        + '  background-size: cover;\n'
+        +'}\n'
+        + '.aquo {\n'
+        + '   font-family: monospace;\n'
+        + '   -webkit-transform: scale(0.5,2);\n'
+        + '   font-size: 150%;\n'
+        + '}\n'
         + '</style>\n'
         + '</HEAD>\n<BODY>\n');
       var versionList = new Array();
@@ -194,8 +200,8 @@
               verseTextBuf += '</P>';
             currChapter = nextChapter;
             verseTextBuf +=
-              '<P><b>&laquo;'
-              + getVolumeChapterText(volume, currChapter, version) + '&raquo;</b>&nbsp;&nbsp; ';
+              '<P><b><span class="aquo">&laquo;</span>'
+              + getVolumeChapterText(volume, currChapter, version) + '<span class="aquo">&raquo;</span></b>&nbsp;&nbsp; ';
           }
           verseTextBuf +=  '&nbsp; <sup style="font-size:70%;">' + verseNum + '</sup> ' + verseText;
         }
