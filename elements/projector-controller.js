@@ -136,7 +136,6 @@
         +'}\n'
         + '.aquo {\n'
         + '   font-family: monospace;\n'
-        + '   -webkit-transform: scale(0.5,2);\n'
         + '   font-size: 150%;\n'
         + '}\n'
         + '</style>\n'
