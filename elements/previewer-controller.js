@@ -1,11 +1,34 @@
+'use strict';
+
 (function() {
-  Polymer('previewer-controller', {
-    pageSize: 6,
-    nVolume: 1,
-    startVerseSub: 0,
-    indOfFirstVerseOfThisVol: 0,
-    indOfLastVerseOfThisVol: 0,
-    verseList: [],
+  Polymer({
+    is: 'previewer-controller',
+    properties: {
+        pageSize: {
+          type: Number,
+          value: 6
+        },
+        nVolume: {
+          type: Number,
+          value: 1
+        },
+        startVerseSub: {
+          type: Number,
+          value: 0
+        },
+        indOfFirstVerseOfThisVol: {
+          type: Number,
+          value: 0
+        },
+        indOfLastVerseOfThisVol: {
+          type: Number,
+          value: 0
+        },
+        verseList: {
+          type: Array,
+          value: []
+        }
+    },
 
     _updateVerses: function() {
       this.previewTitle = getTitleFromVerseSub( this.nVolume, this.startVerseSub );

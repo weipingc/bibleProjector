@@ -1,4 +1,6 @@
-bibleVolumeNamesEn = new Array(
+'use strict';
+
+var bibleVolumeNamesEn = new Array(
     "Genesis",
     "Exodus",
     "Leviticus",

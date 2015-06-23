@@ -1,35 +1,89 @@
-(function() {
-  Polymer('projector-controller', {
-    initialized: false,
-    verseNotSet: true,
-    pageSize: 3,
-    bgFile: 'black',
-    fontSize: 40,
-    previewTitle: '<closed>',
-    nVolume: 1,
-    startVerseSub: 0,
-    indOfFirstVerseOfThisVol: 0,
-    indOfLastVerseOfThisVol: 0,
-    projWin: -1,
-    projectorClosed: true,
+'use strict';
 
-    versionCUN: true,   // Chinese Union Verseion
-    versionKJV: true,
+Polymer({
+    is: 'projector-controller',
+    properties: {
+        initialized: {
+          type: Boolean,
+          value: false
+        },
+        verseNotSet: {
+          type: Boolean,
+          value: true
+        },
+        projectorClosed: {
+          type: Boolean,
+          value: true
+        },
+        versionCUN: {
+          // Chinese Union Verseion
+          type: Boolean,
+          value: true
+        },
+        versionKJV: {
+          type: Boolean,
+          value: true
+        },
+        syncPreview: {
+          type: Boolean,
+          value: false
+        },
+        
+        pageSize: {
+          type: Number,
+          value: 3
+        },
+        fontSize: {
+          type: Number,
+          value: 40
+        },
+        
+        bgFile: {
+          type: String,
+          value: 'black'
+        },
+        previewTitle: {
+          type: String,
+          value: '<closed>'
+        },
+        nVolume: {
+          type: Number,
+          value: 1
+        },
+        startVerseSub: {
+          type: Number,
+          value: 0
+        },
+        indOfFirstVerseOfThisVol: {
+          type: Number,
+          value: 0
+        },
+        indOfLastVerseOfThisVol: {
+          type: Number,
+          value: 0
+        },
+        projWin: {
+          type: Number,
+          value: -1
+        },
+        
+        backgroundSettings: {
+          type: Array,
+          value: new Array(
+            {selected: false, label: 'Black', value: 'black'},
+            {selected: false, label: 'White', value: 'white'},
+            {selected: false, label: 'Brgt1', value: 'bgBright1.jpeg'},
+            {selected: false, label: 'Brgt2', value: 'bgBright2.jpeg'},
+            {selected: false, label: 'Brgt3', value: 'bgBright3.jpeg'},
+            {selected: false, label: 'Brgt4', value: 'bgBright4.jpeg'},
+            {selected: false, label: 'Dark1', value: 'bgDark1.jpeg'},
+            {selected: false, label: 'Dark2', value: 'bgDark2.jpeg'},
+            {selected: false, label: 'Dark3', value: 'bgDark3.jpeg'},
+            {selected: false, label: 'Dark4', value: 'bgDark4.jpeg'}
+          )
+        }
+    },
 
-    backgroundSettings: [
-        {selected: false, label: 'Black', value: 'black'},
-        {selected: false, label: 'White', value: 'white'},
-        {selected: false, label: 'Brgt1', value: 'bgBright1.jpeg'},
-        {selected: false, label: 'Brgt2', value: 'bgBright2.jpeg'},
-        {selected: false, label: 'Brgt3', value: 'bgBright3.jpeg'},
-        {selected: false, label: 'Brgt4', value: 'bgBright4.jpeg'},
-        {selected: false, label: 'Dark1', value: 'bgDark1.jpeg'},
-        {selected: false, label: 'Dark2', value: 'bgDark2.jpeg'},
-        {selected: false, label: 'Dark3', value: 'bgDark3.jpeg'},
-        {selected: false, label: 'Dark4', value: 'bgDark4.jpeg'}
-      ],
-
-    syncPreview: false,
     syncPreviewChanged: function() {
       if( !this.projectorClosed && this.syncPreview ) {
         var evt = new VerseEvent( this.nVolume, this.startVerseSub );
@@ -38,9 +92,15 @@
     },
 
     ready: function() {
-      if( !this.$.storage.value || !this.$.storage.value.bgFile )
+      console.log("projector-projector is ready");
+    },
+    
+    ironLocalStorageLoaded: function() {
+      var val = this.$.storage.value;
+      console.log( "ironLocalStorageLoaded, value=" + val );
+      if( !val || !val.bgFile )
         return;
-      this.bgFile = this.$.storage.value.bgFile;
+      this.bgFile = val.bgFile;
       for( var ind=0; ind<this.backgroundSettings.length; ind++ ) {
         if( this.backgroundSettings[ind].value != this.bgFile )
           continue;
@@ -50,33 +110,35 @@
     },
 
     defaultVerSelected: function() {
-      var chkNeedsClick;
-      if( this.initialized ) {
-        if( defaultVer == VER_CUN ) {
+      if( defaultVer == VER_CUN ) {
+          this.$.chkVersionCUN.value = true;
+          this.$.chkVersionKJV.value = false;
           this.versionCUN = true;
-          chkNeedsClick = this.$.chkVersionKJV;
-        } else if( defaultVer == VER_KJV ) {
-          this.versionKJV = true;
-          chkNeedsClick = this.$.chkVersionCUN;
-        }
+          this.versionKJV = false;
       } else {
-        this.initialized = true;
-        if( defaultVer == VER_CUN )
-          this.$.chkVersionKJV.click();
-        else
-          this.$.chkVersionCUN.click();
+          this.$.chkVersionCUN.value = false;
+          this.$.chkVersionKJV.value = true;
+          this.versionCUN = false;
+          this.versionKJV = true;
       }
 
       var projCtr = this;
       var timer = window.setInterval( function() {
-        window.clearInterval( timer );
-        if( chkNeedsClick )
-          chkNeedsClick.click();
-        if( !projCtr.projectorClosed )
-          projCtr._projectVerse();
+          window.clearInterval( timer );
+          if( !projCtr.projectorClosed ) {
+            projCtr._projectVerse();
+          }
       }, 1 );
     },
 
+    chkVersionCUNChanged: function(evt) {
+        this.versionCUN = evt.srcElement.checked;
+    },
+    
+    chkVersionKJVChanged: function(evt) {
+        this.versionKJV = evt.srcElement.checked;
+    },
+    
     openProjector: function( evt ) {
       this._projectVerse();
     },
@@ -277,7 +339,6 @@
 
     isProjectorOpen: function() {
       return this.projWin != -1 && this.projWin.document;
-    },
+    }
 
-  });
-})();
+});

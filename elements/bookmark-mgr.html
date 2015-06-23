@@ -1,48 +1,40 @@
-<link rel="import" href="polymer-localstorage.html">
+<dom-module id="bookmark-mgr">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" type="css" href="../app.css">
 
-<polymer-element name="bookmark-mgr">
-<template>
-  <link rel="stylesheet" type="text/css" href="../app.css">
-  <style>
+<style>
     fieldset {
-      display: block;
-      -webkit-margin-start: 2px;
-      -webkit-margin-end: 10px;
-      -webkit-padding-before: 0em;
-      -webkit-padding-start: 0.3em;
-      -webkit-padding-end: 0em;
-      -webkit-padding-after: 0em;
-      border: 2px groove threedface;
-      border-image-source: initial;
-      border-image-slice: initial;
-      border-image-width: initial;
-      border-image-outset: initial;
-      border-image-repeat: initial;
-      height: 100%;
-      position: relative;
-      top: 2px;
+      margin-top: 0.2em;
     }
-  </style>
+</style>
+
+<template>
+  <iron-localstorage id="storage" name="bible-projector-bookmarks"
+        errorMessage='Error in "bible-projector-bookmarks" local storage'
+        on-iron-localstorage-load="ironLocalStorageLoaded"
+  ></iron-localstorage>
   
-  <polymer-localstorage id="storage" name="bible-projector-bookmarks"></polymer-localstorage>
   <div id="bookmakrMgrRoot" class="tableCellDiv">
     <fieldset>
       <legend><b>Bookmarks</b></legend>
-      <input type="button" value="View" title="Preview bookmark"  on-click="{{previewBookmark}}">
-      <input type="button" value="Delete" title="Delete bookmark"  on-click="{{deleteBookmark}}">
-      <br>
-      <span>&nbsp;</span>
-      <input type="button" value=" Project " title="Project bookmark"  on-click="{{projectBookmark}}" class="emphasizedBtn">
-      <br>
-      <template repeat="{{bookmark in bookmarks}}">
+      <table>
+      <tr><td>
+      <input type="button" value="Project" title="Project bookmark"  on-click="projectBookmark"></td><td>
+      <input type="button" value="View" title="Preview bookmark"  on-click="previewBookmark"></td>
+      </tr><tr><td>
+      <input type="button" value="Delete " title="Delete bookmark"  on-click="deleteBookmark"></td><td>
+      <input type="button" value="Save" title="Save bookmarks"  on-click="saveBookmarks"></td>
+      </tr></table>
+      <template is="dom-repeat" items="{{bookmarks}}" as="bookmark">
         <input type="radio" name="bookmark" id="bm.{{bookmark.verseSub}}"
           checked="{{bookmark.selected}}">
         <label id="bm.{{bookmark.verseSub}}"  for="bm.{{bookmark.verseSub}}"
-               on-dblclick="{{previewBookmark}}">{{bookmark.label}}</label><br>
+               on-dblclick="previewBookmark">{{bookmark.label}}</label><br>
       </template>
     </fieldset>
   </div>
 </template>
 
-  <script src="bookmark-mgr.js"></script>
-</polymer-element>
+<script type="text/javascript" src="bookmark-mgr.js"></script>
+
+</dom-module>

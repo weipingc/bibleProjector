@@ -1,3 +1,4 @@
+'use strict';
 
 // Bible Projector does work as Chrome app yet. 12/18/2013
 

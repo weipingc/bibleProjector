@@ -1,6 +1,6 @@
-<polymer-element name="verse-selector">
-<template>
-  <style>
+<dom-module id="verse-selector">
+
+<style>
     .tableDiv {
       display: table;
     }
@@ -23,6 +23,7 @@
       border-color: white;
       border-style: solid;
       padding: 0.1em;
+      padding-left: 0.4em;
     }
     .anchorCell:hover {
       border: 1px;
@@ -42,35 +43,18 @@
       border-color: black;
       border-style: solid;
     }
-    
-    fieldset {
-      display: block;
-      -webkit-margin-start: 2px;
-      -webkit-margin-end: 10px;
-      -webkit-padding-before: 0em;
-      -webkit-padding-start: 0.3em;
-      -webkit-padding-end: 0em;
-      -webkit-padding-after: 0em;
-      border: 2px groove threedface;
-      border-image-source: initial;
-      border-image-slice: initial;
-      border-image-width: initial;
-      border-image-outset: initial;
-      border-image-repeat: initial;
-      min-width: -webkit-min-content;
-    }
-  </style>
+</style>
   
+<template>
   <fieldset>
     <legend><b>Volumes</b></legend>
     <div class="tableDiv" id="volAnchorLines">
-      <template repeat="{{anchorLine in volAnchorLines}}">
+      <template is="dom-repeat" items="{{volAnchorLines}}" as="anchorLine">
         <div class="tableRowDiv">
-          <template repeat="{{anchor in anchorLine}}">
+          <template is="dom-repeat" items="{{anchorLine.anchors}}" as="anchor">
             <div class="anchorFiller"></div>
-            <div class="anchorCell {{anchor.selectedClass}}" id="vol.{{anchor.id}}"
-              on-click="{{volAnchorClicked}}">
-              <template if="{{anchor.id<10 }}">&nbsp;&nbsp;</template>{{anchor.text}}
+            <div class="anchorCell" id="{{anchor.id}}" on-click="volAnchorClicked">
+              <template is="dom-if" if="{{anchor.needPadding}}">&nbsp;</template> <span>{{anchor.text}}</span>
             </div>
           </template>
           <div class="anchorFiller"></div>
@@ -78,8 +62,8 @@
       </template>
     </div>
   </fieldset>
-  
 </template>
 
-<script src="verse-selector.js"></script>
-</polymer-element>
+<script type="text/javascript" src="verse-selector.js"></script>
+
+</dom-module>

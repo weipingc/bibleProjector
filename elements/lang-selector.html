@@ -1,6 +1,8 @@
-<polymer-element name="lang-selector" attributes="secondsToStart">
-<template>
-  <style>
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="lang-selector">
+<style>
     #langSelector {
       font-size: 1.5em; 
       margin-left: 2em;
@@ -12,29 +14,37 @@
     button {
       font-size: 14pt;
     }
-  </style>
+</style>
   
-  <polymer-localstorage id="storage" name="bible-projector-language-selection"></polymer-localstorage>
+<template>
+  <iron-localstorage id="storage" name="bible-projector-language-selection"
+        errorMessage='Error in "bible-projector-language-selection" local storage'
+        on-iron-localstorage-load="ironLocalStorageLoaded"
+  ></iron-localstorage>
+  
   <div id="langSelector">
     <p><label for="langSelect">Please select Primary language:</label></p>
-    <select id="langSelect" size="2" on-dblclick="{{selectLang}}">
-      <template repeat="{{langInfo in langInfoList}}">
-        <option value="{{langInfo.value}}" selected?="{{langInfo.selected}}">{{langInfo.label}}</option>
+    <select id="langSelect" size="2" on-dblclick="selectLang">
+      <template is="dom-repeat" items="{{langInfoList}}">
+        <option value="{{item.value}}" selected$="{{item.selected}}">{{item.label}}</option>
       </template>
     </select>
     <br>
     <br>
-    <input type="checkbox" id="rememberChk" checked="{{rememberMySelection}}" checked?="{{rememberMySelection}}">
+    <paper-checkbox checked$="{{rememberMySelection}}" on-change="rememberMySelectionChanged">Remember my selection</paper-checkbox>
+    <!--
+    <input is="iron-input" type="checkbox" id="rememberChk" bind-value="{{rememberMySelection}}">
     <label for="rememberChk">Remember my selection</label>
+    -->
     <br>
-    <button id="okBtn" hidden?="{{!started}}" autofocus="autofocus" on-click="{{selectLang}}"> O K </button>
-    <p hidden?="{{started}}">Will start automatically in <span id="secondsToStartCounter">{{secondsToStart}}</span> seconds ...... 
-      <button id="startBtn" autofocus="autofocus" on-click="{{selectLang}}"> Start Now </button>
+    <button id="okBtn" hidden$="{{!started}}" autofocus="autofocus" on-click="selectLang"> O K </button>
+    <p hidden$="{{started}}">Will start automatically in <span id="secondsToStartCounter">{{secondsToStart}}</span> seconds ...... 
+      <button id="startBtn" autofocus="autofocus" on-click="selectLang"> Start Now </button>
     </p>
   </div>
 
 </template>
 
-<script src="lang-selector.js"></script>
+<script type="text/javascript" src="lang-selector.js"></script>
 
-</polymer-element>
+</dom-module>

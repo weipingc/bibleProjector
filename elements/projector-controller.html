@@ -1,25 +1,10 @@
-<polymer-element name="projector-controller">
-<template>
-  <link rel="stylesheet" type="text/css" href="../app.css">
-  <style>
-    fieldset {
-      display: block;
-      -webkit-margin-start: 2px;
-      -webkit-margin-end: 10px;
-      -webkit-padding-before: 0em;
-      -webkit-padding-start: 0.3em;
-      -webkit-padding-end: 0em;
-      -webkit-padding-after: 0em;
-      border: 2px groove threedface;
-      border-image-source: initial;
-      border-image-slice: initial;
-      border-image-width: initial;
-      border-image-outset: initial;
-      border-image-repeat: initial;
-      min-width: -webkit-min-content;
-      height: 100%;
-    }
-    
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+
+<dom-module id="projector-controller">
+<link rel="import" type="css" href="../app.css">
+
+<style>
     .filler {
       margin-left: 3px;
       margin-right: 3px;
@@ -28,22 +13,34 @@
       padding-left: 1px;
       padding-right: 1px;
     }
-  </style>
+    
+    #checkboxLabel {
+      padding-left: 0px;
+    }
+    
+    fieldset {
+      margin-left:  0.3em;
+      margin-right: 0.3em;
+    }
+</style>
   
-  <polymer-localstorage id="storage" name="bible-projector-projector-config"></polymer-localstorage>
+<template>
+  <iron-localstorage id="storage" name="bible-projector-projector-config"
+        errorMessage='Error in "bible-projector-projector-config" local storage'
+        on-iron-localstorage-load="ironLocalStorageLoaded"
+  ></iron-localstorage>
+  
   <fieldset>
-    <legend><b>Projector</b> ({{previewTitle}})</legend>
+    <legend><b>Projector</b> (<span>{{previewTitle}}</span>)</legend>
 
-    <input type="checkbox" id="chkVersionCUN" checked="{{versionCUN}}}" disabled?="{{!versionKJV}}"
-      title="Chinese Union Version">
-    <label for="chkVersionCUN" title="Chinese Union Version">CUN</label>
+    <paper-checkbox id="chkVersionCUN" checked="{{versionCUN}}" disabled$="{{!versionKJV}}"
+        title="Chinese Union Version">CUN</paper-checkbox>
     <span class="filler"></span>
-    <input type="checkbox" id="chkVersionKJV" checked="{{versionKJV}}}" disabled?="{{!versionCUN}}"
-      title="King James Version">
-    <label for="chkVersionKJV" title="King James Version">KJV</label>
+    <paper-checkbox id="chkVersionKJV" checked="{{versionKJV}}" disabled$="{{!versionCUN}}"
+        title="King James Version">KJV</paper-checkbox>
     <span class="filler"></span>
     <label for="pageSizeSelect">&nbsp;PerPg</label>
-    <select id="pageSizeSelect" on-change="{{pageSizeSelectionChanged}}">
+    <select id="pageSizeSelect" on-change="pageSizeSelectionChanged">
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3" selected>3</option>
@@ -61,36 +58,36 @@
     </select>
     <span class="filler"></span>
     <label for="bgSelect">&nbsp;BG</label>
-    <select id="bgSelect" on-change="{{bgSelectionChanged}}">
-      <template repeat="{{ bgSetting in backgroundSettings}}">
-        <option value="{{bgSetting.value}}" selected?="{{bgSetting.selected}}">{{bgSetting.label}}</option>
+    <select id="bgSelect" on-change="bgSelectionChanged">
+      <template is="dom-repeat" items="{{backgroundSettings}}">
+        <option value="{{item.value}}" selected$="{{item.selected}}">{{item.label}}</option>
       </template>
     </select>
     <span class="filler"></span>
-    <input type="button" disabled?="{{projectorClosed}}" value="Apply" id="goBtn" title="Apply setting" on-click="{{applySetting}}" class="emphasizedBtn less-padding">
+    <input type="button" disabled$="{{projectorClosed}}" value="Apply" id="goBtn" title="Apply setting" on-click="applySetting" class="emphasizedBtn less-padding">
     <span class="filler"></span>
-    <input type="checkbox" id="chkSyncPreview" checked="{{syncPreview}}"
-      title="Synchronize preview">
-    <label for="chkSyncPreview" title="Synchronize preview">Sync</label>
-    <input type="button" disabled?="{{projectorClosed}}" value="&lt;" id="prevPageBtn" title="Previous page" on-click="{{viewPreviousPage}}">
-    <input type="button" disabled?="{{projectorClosed}}" value="&gt;" id="nextPageBtn" title="Next page"     on-click="{{viewNextPage}}">
+    <paper-checkbox id="chkSyncPreview" checked="{{syncPreview}}"
+        title="Synchronize preview">Sync</paper-checkbox>
+    <input type="button" disabled$="{{projectorClosed}}" value="&lt;" id="prevPageBtn" title="Previous page" on-click="viewPreviousPage">
+    <input type="button" disabled$="{{projectorClosed}}" value="&gt;" id="nextPageBtn" title="Next page"     on-click="viewNextPage">
     <span class="filler"></span>
-    <input type="button" disabled?="{{projectorClosed}}" value="A" id="smallerFontBtn"
-      title="Smaller font" style="font-size:80%;"  on-click="{{smallerFont}}">
-    <input type="button" disabled?="{{projectorClosed}}" value="A" id="largerFontBtn"
-      title="Larger font"  style="font-size:120%;" on-click="{{largerFont}}">
+    <input type="button" disabled$="{{projectorClosed}}" value="A" id="smallerFontBtn"
+      title="Smaller font" style="font-size:80%;"  on-click="smallerFont">
+    <input type="button" disabled$="{{projectorClosed}}" value="A" id="largerFontBtn"
+      title="Larger font"  style="font-size:120%;" on-click="largerFont">
     <span class="filler"></span>
-    <input type="button" disabled?="{{projectorClosed}}" value="Save" id="saveBtn"  on-click="{{bookmarkVerse}}"
+    <input type="button" disabled$="{{projectorClosed}}" value="Book It" id="saveBtn"  on-click="bookmarkVerse"
       title="Bookmark the verse" class="less-padding">
     <span>
-      <input style="min-width: 40px;" type="button" disabled?="{{verseNotSet}}" hidden?="{{!projectorClosed}}" value="Open"
-        id="openBtn"  on-click="{{openProjector}}"  title="Open the projector window" class="less-padding">
-      <input style="min-width: 40px;" type="button" disabled?="{{verseNotSet}}" hidden?="{{projectorClosed}}"  value="Close"
-        id="closeBtn" on-click="{{closeProjector}}" title="Close the projector window" class="less-padding">
+      <input style="min-width: 40px;" type="button" disabled$="{{verseNotSet}}" hidden$="{{!projectorClosed}}" value="Open"
+        id="openBtn"  on-click="openProjector"  title="Open the projector window" class="less-padding">
+      <input style="min-width: 40px;" type="button" disabled$="{{verseNotSet}}" hidden$="{{projectorClosed}}"  value="Close"
+        id="closeBtn" on-click="closeProjector" title="Close the projector window" class="less-padding">
     </span>
 
   </fieldset>
 </template>
 
-  <script src="projector-controller.js"></script>
-</polymer-element>
+<script type="text/javascript" src="projector-controller.js"></script>
+
+</dom-module>

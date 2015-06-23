@@ -1,3 +1,5 @@
+'use strict';
+
 //
 // VsePtr()
 //  Return the pointer of a specified verse
@@ -22,12 +24,13 @@ function VsePtr(Volume, Chap, Verse){
 function abrevOfVolume( nVol ) {
   var chaps = CumNumOfChpPerVol[nVol-1];
   var firstVerseSub = CumNumOfVrsPerChp[ chaps ];
-  var verseText = getBible()[firstVerseSub];
+  var bible = getBible();
+  var verseText = bible[firstVerseSub];
   var volAbrevInd = verseText.search( /\d+.\d+/ );
   var abrev = verseText.substring( 0, volAbrevInd );
-  if( bibleLang == LANG_CHN )
+  if( bibleLang == LANG_CHN ) {
     abrev = abrev.substring( 0, 1 );
-  else if( bibleLang == LANG_EN )
+  } else if( bibleLang == LANG_EN )
     abrev = abrev.substring( 0, 3 );
   return abrev;
 }
@@ -53,7 +56,7 @@ function getVolumeChapterText( volume, chapter, version ) {
   var volumeText = bibleVolumeNames[ version2Lang[version] ] [volume-1];
   var chapterText = ' Ch' + chapter;
   if( version2Lang[version] == LANG_CHN ) {
-    chapterText = chapter + chapterChineseName;
+    chapterText = ' ' + chapter + chapterChineseName;
   }
   return volumeText + chapterText;
 }

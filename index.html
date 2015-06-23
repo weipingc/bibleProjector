@@ -4,10 +4,8 @@
     <meta charset="big5">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title> Bible Projector</title>
-    <link rel="stylesheet" type="text/css" href="app.css">
-    <link rel="import" href="elements/bible-app.html">
-    <script src="bower_components/platform/platform.js"></script>
-    <script src="bower_components/polymer/polymer.js"></script>
+    <link rel="stylesheet" href="app.css">
+    
     <script src="data/bibleDataCUN.js"></script>
     <script src="data/bibleDataKJV.js"></script>
     <script src="data/bibleTextCUN_Big5.js"></script>
@@ -18,6 +16,18 @@
     
     <script src="data/bibleUtil.js"></script>
     <script src="data/chapterChineseName.js"></script>
+    
+    <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <!-- endbuild -->
+    <script>
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+    </script>
+  
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    
+    <link rel="import" href="elements/bible-app.html">
   </head>
   <body>
     <bible-app></bible-app>

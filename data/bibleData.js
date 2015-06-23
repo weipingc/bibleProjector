@@ -1,3 +1,5 @@
+'use strict';
+
 // User interface languages
 const LANG_CHN = 'CHN';
 const LANG_EN  = 'EN';
@@ -6,34 +8,34 @@ const LANG_EN  = 'EN';
 const VER_CUN  = 'CUN';
 const VER_KJV  = 'KJV';
 
-bibleVolumeNames = {};
+var bibleVolumeNames = {};
 bibleVolumeNames[LANG_CHN] = bibleVolumeNamesChn;
 bibleVolumeNames[LANG_EN]  = bibleVolumeNamesEn;
 
-BibleByVer = {};
+var BibleByVer = {};
 BibleByVer[VER_CUN] = BibleCUNBig5;
 BibleByVer[VER_KJV] = BibleKJV;
 
-lang2Version = {};
+var lang2Version = {};
 lang2Version[LANG_CHN] = VER_CUN;
 lang2Version[LANG_EN]  = VER_KJV;
 
-version2Lang = {};
+var version2Lang = {};
 version2Lang[VER_CUN] = LANG_CHN;
 version2Lang[VER_KJV] = LANG_EN;
 
-CumNumOfChpPerVolByVer = {};
+var CumNumOfChpPerVolByVer = {};
 CumNumOfChpPerVolByVer[VER_CUN] = CumNumOfChpPerVol_CUN;
 CumNumOfChpPerVolByVer[VER_KJV] = CumNumOfChpPerVol_KJV;
-CumNumOfChpPerVol = [];
+var CumNumOfChpPerVol = [];
 
-CumNumOfVrsPerChpByVer = {};
+var CumNumOfVrsPerChpByVer = {};
 CumNumOfVrsPerChpByVer[VER_CUN] = CumNumOfVrsPerChp_CUN;
 CumNumOfVrsPerChpByVer[VER_KJV] = CumNumOfVrsPerChp_KJV;
-CumNumOfVrsPerChp = [];
+var CumNumOfVrsPerChp = [];
 
-bibleLang = 'UNK';
-defaultVer = 'UNK';
+var bibleLang = 'UNK';
+var defaultVer = 'UNK';
 function setDefaultVer() {
   defaultVer = lang2Version[bibleLang];
   CumNumOfChpPerVol = CumNumOfChpPerVolByVer[defaultVer];

@@ -1,10 +1,26 @@
-(function() {
-  Polymer('quick-input', {
+'use strict';
 
-    sQuickInput: '43.3.16',
-    volChapVerseMax: '',
-    inputError: false,
-    startVerseSub: -1,
+(function() {
+  Polymer({
+    is: 'quick-input',
+    properties: {
+        sQuickInput: {
+          type: String,
+          value: '43.3.16'
+        },
+        volChapVerseMax: {
+          type: String,
+          value:''
+        },
+        inputError: {
+          type: Boolean,
+          value: false
+        },
+        startVerseSub: {
+          type: Number,
+          value: -1
+        }
+    },
 
     onQuickInputKeyUp: function( evt ) {
       this._verifyInput();
@@ -18,7 +34,7 @@
       this.inputError = false;
       this.$.quickInputField.style.background = 'white';
       this.$.quickInputField.focus();
-      var sQuickInputNew = this.sQuickInput.replace( / /g, '' );
+      var sQuickInputNew = this.$.quickInputField.value.replace( / /g, '' );
 
       var wholeInd = sQuickInputNew.search( /^\d*(\.\d*){0,1}(\.\d*){0,1}$/ );
       if( wholeInd < 0 ) {
@@ -81,7 +97,7 @@
       this._verifyInput();
       if( this.inputError )
         return;
-      this.sQuickInput = this.sQuickInput.replace( / /g, '' );
+      this.sQuickInput = this.$.quickInputField.value.replace( / /g, '' );
       if( this.sQuickInput.length < 1 )
         return;
 

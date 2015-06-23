@@ -1,1 +1,3 @@
-chapterChineseName = "³¹";
+'use strict';
+
+var chapterChineseName = "ç« ";

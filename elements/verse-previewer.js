@@ -1,7 +1,18 @@
+'use strict';
+
 (function() {
-  Polymer('verse-previewer', {
-    previewText: '',
-    chapInfo4DispList: [],
+  Polymer({
+    is: 'verse-previewer',
+    properties: {
+      previewText: {
+          type: Number,
+          value: ''
+      },
+      chapInfo4DispList: {
+          type: Array,
+          value: []
+      }
+    },
 
     displayVerse: function( verseEvent ) {
       this.chapInfo4DispList = [];
@@ -25,7 +36,7 @@
         if( currChapter != nextChapter ) {
           currChapter = nextChapter;
           chapInfo4Disp = new ChapInfo4Disp( getVolumeChapterText(this.volume, currChapter, defaultVer) );
-          this.chapInfo4DispList.push( chapInfo4Disp );
+          this.push("chapInfo4DispList", chapInfo4Disp );
         }
         chapInfo4Disp.verseInfo4DispList.push( new VerseInfo4Disp(this.volume, this.verseSub+cnt,
           verseNum, verseText, firstVerse) );

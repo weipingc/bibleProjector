@@ -1,39 +1,59 @@
-(function() {
-  Polymer('verse-selector', {
-    volAnchorLines: [ [] ],
-    selectedVolAnchor: '',
-    nVolume: 1,
+'use strict';
 
-    init: function() {
-      this.updateVolumeAnchorLines();
+(function() {
+  Polymer({
+    is: 'verse-selector',
+    properties: {
+        volAnchorLines: {
+          type: Array,
+          value: [],
+          notify: true,
+          reflectToAttribute: true
+        },
+        nVolume: {
+          type: Number,
+          value: 1
+        },
+        selectedVolAnchor: {
+          type: String,
+          value: ''
+        },
+    },
+
+    ready: function() {
+      console.log( this.tagName, 'ready' );
     },
 
     updateVolumeAnchorLines: function() {
       console.log( this.tagName, 'updateVolumeAnchorLines' );
-      var line = [];
-      var lines = [];
-      lines.push( line );
+      this.volAnchorLines = [];
+      var anchors = [];
       for( var volInd=1; volInd<=66; volInd++ ) {
-        if( line.length == 10 || volInd==40 ) {
-          line = [];
-          lines.push( line );
+        if( anchors.length == 10 || volInd==40 ) {
+          this.push('volAnchorLines', {anchors: anchors});
+          anchors = [];
         }
         var brev = abrevOfVolume( volInd );
-        line.push( new Anchor(volInd, volInd + '.' + brev, volInd==this.nVolume) );
+        var anchor = new Anchor(volInd, volInd + '.' + brev, volInd==this.nVolume);
+        anchors.push( anchor );
       }
-      this.volAnchorLines = lines;
+      this.push('volAnchorLines', {anchors: anchors});
     },
 
     volAnchorClicked: function( event, detail, sender ) {
       var tarEle = event.target;
+      var volAnchor = tarEle;
+      if( tarEle.tagName == 'SPAN' ) {
+        volAnchor = tarEle.parentElement;
+      }
       if( this.selectedVolAnchor ) {
         this.selectedVolAnchor.className = removeClass(
         this.selectedVolAnchor.className, 'selectedCell' );
       }
-      this.selectedVolAnchor = tarEle;
-      tarEle.className = tarEle.className + ' selectedCell';
+      this.selectedVolAnchor = volAnchor;
+      volAnchor.className = volAnchor.className + ' selectedCell';
 
-      this.nVolume = parseInt( tarEle.id.split( '.' )[1] );
+      this.nVolume = parseInt( volAnchor.id.split( '.' )[1] );
       var evt = new VerseEvent( this.nVolume );
       this.fire( 'volume-selection', {verseEvent: evt} );
     },
@@ -41,11 +61,11 @@
   });
 
   function Anchor( id, text, selected ) {
-    this.id = id;
+    this.id = 'vol.' + id;
     this.text = text;
     this.selected = selected;
-    function selectedClass() { return this.selected ? 'selectedCell' : ''; }
-    function toString() { return 'Anchor(' + id + ', ' + text + ', ' + selected + ')'; }
+    this.selectedClass = 'anchorCell';
+    this.needPadding = id < 10;
   }
 
 })();
