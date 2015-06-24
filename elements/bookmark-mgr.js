@@ -4,6 +4,9 @@
   Polymer({
     is: 'bookmark-mgr',
     properties: {
+      selectedVerseSub: {
+        type: Number
+      },
       bookmarks: {
         type: Array,
         value: []
@@ -85,29 +88,51 @@
     },
 
     bookmarkVerse: function( verseEvent ) {
-      var bookmarkExists = false;
-      for( var ind=0; ind< this.bookmarks.length; ind++ ) {
-        if( this.bookmarks[ind].verseSub == verseEvent.verseSub ) {
-          bookmarkExists = true;
-          this.bookmarks[ind].selected = true;
-        } else {
-          this.bookmarks[ind].selected = false;
+      var bmExists;
+      var insertInd         = this.bookmarks.length==0 ? 0 : -1;
+      var firstItemSelected = this.bookmarks.length==0 ? false : this.bookmarks[0].selected;
+      for( var ind=0; ind < this.bookmarks.length; ind++ ) {
+        var bm = this.bookmarks[ind];
+        if( bm.verseSub == verseEvent.verseSub ) {
+            if( bm.selected ) {
+                // The verse is already bookmarked and selected, do nothing
+                return;
+            }
+            bmExists = bm;
+        } else if( !bmExists && insertInd==-1 && bm.verseSub > verseEvent.verseSub ){
+            insertInd = ind;
+        }
+        bm.selected = (bm.verseSub == verseEvent.verseSub);
+        
+        if( !bmExists && insertInd == -1 && ind == this.bookmarks.length-1 ) {
+          // Insert at the end
+          insertInd = this.bookmarks.length;
         }
       }
-      if( bookmarkExists ) {
-        return;
+      
+      // Need to find better way to trigger DOM update, wanting ReactJS way.
+      
+      // Make a copy first, add new item if needed, then wipe out the list
+      var newBookmarks = this.bookmarks.slice( 0 );
+      if( insertInd >= 0 ) {
+        newBookmarks.splice( insertInd, 0, new Bookmark(verseEvent.volume, verseEvent.verseSub, true) );
       }
-      this.bookmarks.push( new Bookmark( verseEvent.volume, verseEvent.verseSub, true) );
-      this.bookmarks.sort(
-        function( bm1, bm2) {
-          return bm1.verseSub - bm2.verseSub;
-        }
-      );
-      // Trigger renderring
-      var bookmarks = this.bookmarks;
-      this.bookmarks = [];
-      for( var ind=0; ind< bookmarks.length; ind++ ) {
-        this.push( "bookmarks", bookmarks[ind] );
+      this.splice( "bookmarks", 0, this.bookmarks.length );
+      
+      // Get around paper-radio-group could not unselect the first item, step 1
+      var firstBm;
+      if( !bmExists && firstItemSelected ) {
+        firstBm = newBookmarks.shift();
+      }
+      
+      var bookmarkMgrThis = this;
+      newBookmarks.forEach( function(bookmark) {
+        bookmarkMgrThis.push( "bookmarks", bookmark );
+      } );
+      
+      // Get around paper-radio-group could not unselect the first item, step 2
+      if( !bmExists && firstItemSelected ) {
+        this.splice( "bookmarks", 0, 0, firstBm );
       }
     },
 
