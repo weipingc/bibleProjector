@@ -15,8 +15,13 @@
 
     ironLocalStorageLoaded: function() {
       var savedData = this.$.storage.value;
-      if( savedData )
-        this.bookmarks = savedData;
+      if( savedData ) {
+          this.bookmarks = savedData;
+          var selectedBM = this.getSelectedBookmark();
+          if( selectedBM != null ) {
+            this.selectedVerseSub = selectedBM.verseSub;
+          }
+      }
     },
 
     bookmarkDblClicked: function( evt ) {
