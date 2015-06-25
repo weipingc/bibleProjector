@@ -24,7 +24,7 @@
           this.electedVerseSubPlusOne = savedData.selectedVerseSubPlusOne;
           this.bookmarks = savedData.bookmarks;
           this.notifyPath( 'selectedVerseSubPlusOne', this.selectedVerseSubPlusOne );
-          this.notifyPath( 'bookmarks', this.savedData.bookmarks );
+          this.notifyPath( 'bookmarks', this.bookmarks );
       }
     },
 
