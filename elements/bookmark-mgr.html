@@ -28,9 +28,10 @@
       <input type="button" value="Delete " title="Delete bookmark"  on-click="deleteBookmark"></td><td>
       <input type="button" value="Save" title="Save bookmarks"  on-click="saveBookmarks"></td>
       </tr></table>
-      <paper-radio-group id="bookmarkRadioGrp">
+      <paper-radio-group id="bookmarkRadioGrp"
+          selected="{{selectedVerseSubPlusOne}}">
           <template is="dom-repeat" items="{{bookmarks}}" as="bookmark">
-            <paper-radio-button name="{{bookmark.verseSub}}" checked="{{bookmark.selected}}"
+            <paper-radio-button name="{{bookmark.selectedVerseSubPlusOne}}"
                 >{{bookmark.label}}</paper-radio-button>
           </template>
       </paper-radio-group>

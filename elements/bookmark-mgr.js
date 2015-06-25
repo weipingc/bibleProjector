@@ -4,8 +4,9 @@
   Polymer({
     is: 'bookmark-mgr',
     properties: {
-      selectedVerseSub: {
-        type: Number
+      selectedVerseSubPlusOne: {
+        type: String,
+        notify: true
       },
       bookmarks: {
         type: Array,
@@ -13,14 +14,17 @@
       }
     },
 
+    ready: function() {
+        console.log( this.tagName );
+    },
+
     ironLocalStorageLoaded: function() {
       var savedData = this.$.storage.value;
       if( savedData ) {
-          this.bookmarks = savedData;
-          var selectedBM = this.getSelectedBookmark();
-          if( selectedBM != null ) {
-            this.selectedVerseSub = selectedBM.verseSub;
-          }
+          this.electedVerseSubPlusOne = savedData.selectedVerseSubPlusOne;
+          this.bookmarks = savedData.bookmarks;
+          this.notifyPath( 'selectedVerseSubPlusOne', this.selectedVerseSubPlusOne );
+          this.notifyPath( 'bookmarks', this.savedData.bookmarks );
       }
     },
 
@@ -66,13 +70,16 @@
     },
     
     saveBookmarks: function() {
-      this.$.storage.value = this.bookmarks;
+      this.$.storage.value = {
+          selectedVerseSubPlusOne: this.selectedVerseSubPlusOne,
+          bookmarks: this.bookmarks
+      };
       this.$.storage.save();
     },
 
     getSelectedBookmark: function() {
       for( var ind=0; ind<this.bookmarks.length; ind++ ) {
-        if( this.bookmarks[ind].selected ) {
+        if( this.bookmarks[ind].selectedVerseSubPlusOne == this.selectedVerseSubPlusOne) {
           return this.bookmarks[ind];
         }
       }
@@ -95,11 +102,10 @@
     bookmarkVerse: function( verseEvent ) {
       var bmExists;
       var insertInd         = this.bookmarks.length==0 ? 0 : -1;
-      var firstItemSelected = this.bookmarks.length==0 ? false : this.bookmarks[0].selected;
       for( var ind=0; ind < this.bookmarks.length; ind++ ) {
         var bm = this.bookmarks[ind];
         if( bm.verseSub == verseEvent.verseSub ) {
-            if( bm.selected ) {
+            if( bm.selectedVerseSubPlusOne == this.selectedVerseSubPlusOne ) {
                 // The verse is already bookmarked and selected, do nothing
                 return;
             }
@@ -107,7 +113,6 @@
         } else if( !bmExists && insertInd==-1 && bm.verseSub > verseEvent.verseSub ){
             insertInd = ind;
         }
-        bm.selected = (bm.verseSub == verseEvent.verseSub);
         
         if( !bmExists && insertInd == -1 && ind == this.bookmarks.length-1 ) {
           // Insert at the end
@@ -119,16 +124,20 @@
       
       // Make a copy first, add new item if needed, then wipe out the list
       var newBookmarks = this.bookmarks.slice( 0 );
+      var selectedBm = bmExists;
       if( insertInd >= 0 ) {
-        newBookmarks.splice( insertInd, 0, new Bookmark(verseEvent.volume, verseEvent.verseSub, true) );
+        selectedBm = new Bookmark( verseEvent.volume, verseEvent.verseSub, true );
+        newBookmarks.splice( insertInd, 0, selectedBm );
       }
       this.splice( "bookmarks", 0, this.bookmarks.length );
       
       // Get around paper-radio-group could not unselect the first item, step 1
+/*
       var firstBm;
       if( !bmExists && firstItemSelected ) {
         firstBm = newBookmarks.shift();
       }
+*/
       
       var bookmarkMgrThis = this;
       newBookmarks.forEach( function(bookmark) {
@@ -136,13 +145,17 @@
       } );
       
       // Get around paper-radio-group could not unselect the first item, step 2
+/*
       if( !bmExists && firstItemSelected ) {
         this.splice( "bookmarks", 0, 0, firstBm );
       }
+*/
+      this.selectedVerseSubPlusOne = selectedBm.selectedVerseSubPlusOne;
     },
 
     defaultVerSelected: function() {
-      this.bookmarks.forEach( function(bookmark) {
+      var bookmarks = this.bookmarks;
+      bookmarks.forEach( function(bookmark) {
         bookmark.label = getTitleFromVerseSub( bookmark.volume, bookmark.verseSub );
       } );
     }
@@ -154,4 +167,5 @@ function Bookmark( volume, verseSub, selected ) {
   this.verseSub = verseSub;
   this.selected = selected;
   this.label = getTitleFromVerseSub( volume, verseSub );
+  this.selectedVerseSubPlusOne = verseSub + 1;
 }
