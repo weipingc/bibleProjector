@@ -29,7 +29,9 @@ Polymer({
     },
     
     rememberMySelectionChanged: function(evt) {
-        this.rememberMySelection = evt.srcElement.checked;
+        if( evt.srcElement ) {
+            this.rememberMySelection = evt.srcElement.checked;
+        }
     },
     
     ironLocalStorageLoaded: function() {

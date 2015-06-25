@@ -14,17 +14,14 @@
       }
     },
 
-    ready: function() {
-        console.log( this.tagName );
-    },
-
     ironLocalStorageLoaded: function() {
       var savedData = this.$.storage.value;
       if( savedData ) {
-          this.electedVerseSubPlusOne = savedData.selectedVerseSubPlusOne;
           this.bookmarks = savedData.bookmarks;
-          this.notifyPath( 'selectedVerseSubPlusOne', this.selectedVerseSubPlusOne );
-          this.notifyPath( 'bookmarks', this.bookmarks );
+          if( savedData.selectedVerseSubPlusOne ) {
+              this.electedVerseSubPlusOne = savedData.selectedVerseSubPlusOne;
+              this.$.bookmarkRadioGrp.select( this.electedVerseSubPlusOne );
+          }
       }
     },
 
@@ -54,15 +51,15 @@
         var verseSub = selectedBM.verseSub;
         for( var ind=0; ind< this.bookmarks.length; ind++ ) {
           if( this.bookmarks[ind].verseSub == verseSub ) {
+            var selectedVerseSubPlusOne = -1;
             if( this.bookmarks.length > 1 ) {
-              var indNewSelected = -1;
               if( ind< this.bookmarks.length-1 )
-                indNewSelected = ind + 1;
+                selectedVerseSubPlusOne = this.bookmarks[ind + 1].verseSubPlusOne;
               else if( ind > 0 )
-                indNewSelected = ind - 1;
-              this.bookmarks[indNewSelected].selected = true;
+                selectedVerseSubPlusOne = this.bookmarks[ind - 1].verseSubPlusOne;
             }
             this.splice( "bookmarks", ind, 1 );
+            this.$.bookmarkRadioGrp.select( selectedVerseSubPlusOne );
             return;
           }
         }
@@ -79,7 +76,7 @@
 
     getSelectedBookmark: function() {
       for( var ind=0; ind<this.bookmarks.length; ind++ ) {
-        if( this.bookmarks[ind].selectedVerseSubPlusOne == this.selectedVerseSubPlusOne) {
+        if( this.bookmarks[ind].verseSubPlusOne == this.selectedVerseSubPlusOne) {
           return this.bookmarks[ind];
         }
       }
@@ -105,7 +102,7 @@
       for( var ind=0; ind < this.bookmarks.length; ind++ ) {
         var bm = this.bookmarks[ind];
         if( bm.verseSub == verseEvent.verseSub ) {
-            if( bm.selectedVerseSubPlusOne == this.selectedVerseSubPlusOne ) {
+            if( bm.verseSubPlusOne == this.selectedVerseSubPlusOne ) {
                 // The verse is already bookmarked and selected, do nothing
                 return;
             }
@@ -126,7 +123,7 @@
       var newBookmarks = this.bookmarks.slice( 0 );
       var selectedBm = bmExists;
       if( insertInd >= 0 ) {
-        selectedBm = new Bookmark( verseEvent.volume, verseEvent.verseSub, true );
+        selectedBm = new Bookmark( verseEvent.volume, verseEvent.verseSub );
         newBookmarks.splice( insertInd, 0, selectedBm );
       }
       this.splice( "bookmarks", 0, this.bookmarks.length );
@@ -150,7 +147,7 @@
         this.splice( "bookmarks", 0, 0, firstBm );
       }
 */
-      this.selectedVerseSubPlusOne = selectedBm.selectedVerseSubPlusOne;
+      this.selectedVerseSubPlusOne = selectedBm.verseSubPlusOne;
     },
 
     defaultVerSelected: function() {
@@ -162,10 +159,9 @@
   });
 })();
 
-function Bookmark( volume, verseSub, selected ) {
+function Bookmark( volume, verseSub ) {
+  this.label = getTitleFromVerseSub( volume, verseSub );
   this.volume = volume;
   this.verseSub = verseSub;
-  this.selected = selected;
-  this.label = getTitleFromVerseSub( volume, verseSub );
-  this.selectedVerseSubPlusOne = verseSub + 1;
+  this.verseSubPlusOne = verseSub + 1;
 }
