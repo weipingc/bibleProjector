@@ -31,12 +31,12 @@
     </select>
     <br>
     <br>
-    <paper-checkbox checked$="{{rememberMySelection}}" on-change="rememberMySelectionChanged">Remember my selection</paper-checkbox>
+    <paper-checkbox id="rememberMySelection" checked$="{{rememberMySelection}}" on-change="rememberMySelectionChanged">Remember my selection</paper-checkbox>
     <!--
     <input is="iron-input" type="checkbox" id="rememberChk" bind-value="{{rememberMySelection}}">
     <label for="rememberChk">Remember my selection</label>
     -->
-    <br>
+    <br/><br/>
     <button id="okBtn" hidden$="{{!started}}" autofocus="autofocus" on-click="selectLang"> O K </button>
     <p hidden$="{{started}}">Will start automatically in <span id="secondsToStartCounter">{{secondsToStart}}</span> seconds ...... 
       <button id="startBtn" autofocus="autofocus" on-click="selectLang"> Start Now </button>

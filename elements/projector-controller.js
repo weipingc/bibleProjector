@@ -7,9 +7,9 @@ Polymer({
           type: Boolean,
           value: false
         },
-        verseNotSet: {
+        verseSet: {
           type: Boolean,
-          value: true
+          value: false
         },
         projectorClosed: {
           type: Boolean,
@@ -119,7 +119,9 @@ Polymer({
       }
 
       var projCtr = this;
-      this.previewTitle = getTitleFromVerseSub( this.nVolume, this.startVerseSub );
+      if( this.verseSet ) {
+          this.previewTitle = getTitleFromVerseSub( this.nVolume, this.startVerseSub );
+      }
       var timer = window.setInterval( function() {
           window.clearInterval( timer );
           if( !projCtr.projectorClosed ) {
@@ -156,7 +158,7 @@ Polymer({
 
     projectVerse: function( verseEvent ) {
       this.nVolume = verseEvent.volume;
-      this.verseNotSet = false;
+      this.verseSet = true;
       this.startVerseSub = verseEvent.verseSub;
 
       var cumNumOfChpNextVol = CumNumOfChpPerVol[this.nVolume];
