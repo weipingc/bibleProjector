@@ -97,57 +97,27 @@
     },
 
     bookmarkVerse: function( verseEvent ) {
-      var bmExists;
-      var insertInd         = this.bookmarks.length==0 ? 0 : -1;
-      for( var ind=0; ind < this.bookmarks.length; ind++ ) {
-        var bm = this.bookmarks[ind];
-        if( bm.verseSub == verseEvent.verseSub ) {
-            if( bm.verseSubPlusOne == this.selectedVerseSubPlusOne ) {
-                // The verse is already bookmarked and selected, do nothing
+        var insertInd = this.bookmarks.length==0 ? 0 : -1;
+        for( var ind=0; ind < this.bookmarks.length; ind++ ) {
+            var bm = this.bookmarks[ind];
+            if( bm.verseSub == verseEvent.verseSub ) {
+                if( this.selectedVerseSubPlusOne != bm.verseSubPlusOne ) {
+                    this.$.bookmarkRadioGrp.select( bm.verseSubPlusOne );
+                }
                 return;
+            } else if( insertInd==-1 && bm.verseSub > verseEvent.verseSub ){
+                insertInd = ind;
             }
-            bmExists = bm;
-        } else if( !bmExists && insertInd==-1 && bm.verseSub > verseEvent.verseSub ){
-            insertInd = ind;
+            
+            if( insertInd == -1 && ind == this.bookmarks.length-1 ) {
+                // Insert at the end
+                insertInd = this.bookmarks.length;
+            }
         }
         
-        if( !bmExists && insertInd == -1 && ind == this.bookmarks.length-1 ) {
-          // Insert at the end
-          insertInd = this.bookmarks.length;
-        }
-      }
-      
-      // Need to find better way to trigger DOM update, wanting ReactJS way.
-      
-      // Make a copy first, add new item if needed, then wipe out the list
-      var newBookmarks = this.bookmarks.slice( 0 );
-      var selectedBm = bmExists;
-      if( insertInd >= 0 ) {
-        selectedBm = new Bookmark( verseEvent.volume, verseEvent.verseSub );
-        newBookmarks.splice( insertInd, 0, selectedBm );
-      }
-      this.splice( "bookmarks", 0, this.bookmarks.length );
-      
-      // Get around paper-radio-group could not unselect the first item, step 1
-/*
-      var firstBm;
-      if( !bmExists && firstItemSelected ) {
-        firstBm = newBookmarks.shift();
-      }
-*/
-      
-      var bookmarkMgrThis = this;
-      newBookmarks.forEach( function(bookmark) {
-        bookmarkMgrThis.push( "bookmarks", bookmark );
-      } );
-      
-      // Get around paper-radio-group could not unselect the first item, step 2
-/*
-      if( !bmExists && firstItemSelected ) {
-        this.splice( "bookmarks", 0, 0, firstBm );
-      }
-*/
-      this.selectedVerseSubPlusOne = selectedBm.verseSubPlusOne;
+        var newBookmark = new Bookmark( verseEvent.volume, verseEvent.verseSub );
+        this.splice( "bookmarks", insertInd, 0, newBookmark );
+        this.$.bookmarkRadioGrp.select( newBookmark.verseSubPlusOne );
     },
 
     defaultVerSelected: function() {
