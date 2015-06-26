@@ -185,6 +185,7 @@ Polymer({
         bg = 'background-color: ' + this.bgFile + ';';
       docObj.writeln(
           '<!DOCTYPE HTML>\n<HEAD>\n<TITLE>Verse projection</TITLE>\n'
+        + '<link rel="shortcut icon" href="favicon.ico">\n'
         + '<meta http-equiv="Content-Type" content="text/html; charset=big5"/>\n'
         + '<style type="text/css">\n'
         + 'body { color: ' + foreColor + ';'

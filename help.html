@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Bible Projector Help</title>
+  <link rel="shortcut icon" href="favicon.ico">
   
   <style>
     h2 {
@@ -36,7 +37,7 @@
         input field; Read in <a href="#anchorPreviewArea">Preview area</a> to verify if you selected the
         correct verse.</li>
       <li>If the verse is correct, click the <b>Project</b> button to project it; Click the
-        <b>Save</b> button to bookmark it for later use.</li>
+        <b>Book It</b> button to bookmark it for later use.</li>
       <li>Use <a href="#anchorProjector">Projector controls</a> for paging, font size adjustment,
         and background selection.</li>
       <li>Double clicking a bookmark will display it in <a href="#anchorPreviewArea">Preview area</a>;
@@ -46,14 +47,18 @@
     You can choose to remember your language selection at the start page. 
   
   <h2><a name="anchorScreenDetails">Screen Details</a></h2>
-  <p>The main window is divided into areas: <a href="#anchorProjector">Projector Control</a> at
-    top, In the second row, there are <a href="#anchorVolumes">Volumes</a>,
-    <a href="#anchorBookmarks">Bookmarks</a>. In the third row, <a href="#anchorInput">Input</a> Control,
-    <a href="#anchorPreviewControl">Preview Control</a>, help link and Language control. And
+  <p>The main window is divided into left and right areas: In left area, <a href="#lang">Language control</a> and <a href="#help">Help link</a> at top, below that is <a href="#anchorBookmarks">Bookmarks</a>. In right area, <a href="#anchorProjector">Projector Control</a> at
+    top, in the second row, there is <a href="#anchorVolumes">Volumes</a>,
+     in the third row, <a href="#anchorInput">Input</a> Control,
+    <a href="#anchorPreviewControl">Preview Control</a>; and
     <a href="#anchorPreviewArea">Preview area</a> is at the bottom.</p>  
   <table>
     <tr valign="bottom">
-        <td></td>
+        <td>
+          <h3><a name="lang">Lang</a></h3>
+          <p>Clicking this button will switch to language selection page. It will set <b>KJV</b> as
+          the default version for English, <b>CUN</b> for Chinese.</p>
+        </td>
         <td width="770px">
           <h3><a name="anchorProjector">Projector</a></h3>
           <p>The first two checkboxes allow user to select what version of the bible to projected.
@@ -64,43 +69,36 @@
             <a href="#anchorPreviewArea">Preview area</a> to be synchronized. Clicking the two arrow buttons
             <b>&lt;</b> and <b>&gt;</b> goes to preview page or next page. Clicking the two buttons
             labeled by letter <b>A</b> descrease or increase the font size of projector window.
-            Clicking the <b>Save</b> button will save the current verse as bookmark, <b>Close</b>
+            Clicking the <b>Book It</b> button will save the current verse as bookmark, <b>Close</b>
             button closes the projector window.</p>
         </td>
         <td></td>
     </tr>
 
     <tr>
-        <td width="140em">
-          <h3><a name="anchorVolumes">Volumes</a></h3>
-          <p>Clicking a <b>Volume</b> will set the volume number in the <b>Input field</b>.</p>
-
+        <td width="200em">
+          <h3><a name="help">Help</a></h3>
+          <p>Clicking this link will open this help page.</p>
+          
+          <h3><a name="anchorBookmarks">Bookmarks</a></h3>
+          <p>You can save verses as bookmark. Clicking the <b>View</b> button to preview the verse,
+            <b>Project</b> button to display the verse in the projector window.</p>
+          
           <h3><a name="anchorInput">Input</a></h3>
-          <p>You enter volume, chapter and verse numbers in <b>Input field</b>, seperated by dot.
-            The range of the currently entering number will be displayed next to the field and the
-            input value will be validated; If the it is invalid, the background of the input field
-            will be changed to red. If they are valid, you can click <b>Save</b> button to save as
+          <p>You enter volume, chapter and verse numbers in <b>Input field</b>, seperated by dot. The range of the currently entering number will be displayed next to the field and the input value will be validated; If it is invalid, the background of the input field will be changed to red. If they are valid, entering return key will preview the verse; Clicking <b>Book It</b> button to save as
             a bookmark, <b>View</b> button to preview.</p>
         </td>
         <td style="margin-left: 2em;">
           <img src="images/screenMain.png">
         </td>
-        <td width="180em">
-          <h3><a name="anchorBookmarks">Bookmarks</a></h3>
-          <p>You can save verses as bookmark. Clicking the <b>View</b> button to preview the verse,
-            <b>Project</b> button to display the verse in the projector window.</p>
-          
+        <td width="200em">
+          <h3><a name="anchorVolumes">Volumes</a></h3>
+          <p>Clicking a <b>Volume</b> will set the volume number in the <b>Input field</b>.</p>
+
           <h3><a name="anchorPreviewControl">Preview control</a></h3>
           <p>You select how many verses to display in Preview area, go to preview page or next page.
-            Click the <b>Save</b> button will save the current verse as bookmark, <b>Project</b>
+            Click the <b>Book It</b> button will save the current verse as bookmark, <b>Project</b>
             button display the verse in the projector window.</p>
-          
-          <h3>Help</h3>
-          <p>Clicking this link will open this help page.</p>
-          
-          <h3>Lang</h3>
-          <p>Clicking this button will switch to language selection page. It will set <b>KJV</b> as
-          the default version for English, <b>CUN</b> for Chinese.</p>
         </td>
     </tr>
 

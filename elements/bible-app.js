@@ -48,7 +48,7 @@ Polymer({
     },
     
     openHelpWindow: function() {
-        window.open('help.html');
+        window.open('help.html', 'bible-projector-help');
     },
 
     previewVerse: function( previewVerseEvt ) {
