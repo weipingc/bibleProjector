@@ -14,12 +14,8 @@ Polymer({
         }
     },
 
-    created: function() {
-      console.log(this.localName + '#' + this.id + ' was created');
-    },
-
     ready: function() {
-      console.log(this.localName + '#' + this.id + ' is ready, langSelectorHidden=' + this.langSelectorHidden);
+      console.log(this.localName, 'ready, langSelectorHidden=' + this.langSelectorHidden);
     },
     
     appSelectLang: function( evt ) {
@@ -52,7 +48,7 @@ Polymer({
     },
     
     openHelpWindow: function() {
-        window.open('../help.html');
+        window.open('help.html');
     },
 
     previewVerse: function( previewVerseEvt ) {

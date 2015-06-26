@@ -20,10 +20,6 @@
         },
     },
 
-    ready: function() {
-      console.log( this.tagName, 'ready' );
-    },
-
     updateVolumeAnchorLines: function() {
       console.log( this.tagName, 'updateVolumeAnchorLines' );
       this.volAnchorLines = [];

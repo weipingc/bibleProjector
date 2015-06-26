@@ -36,8 +36,7 @@ Polymer({
     
     ironLocalStorageLoaded: function() {
       var val = this.$.storage.value;
-      console.log( "ironLocalStorageLoaded, value=" + val );
-      console.log(this.localName + '#' + this.id + ' is ready, secondsToStart=' + this.secondsToStart);
+      console.log( "lang-selector ironLocalStorageLoaded, value=" + val );
       
       var timer;
       var langSelectorThis = this;

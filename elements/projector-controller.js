@@ -91,13 +91,9 @@ Polymer({
       }
     },
 
-    ready: function() {
-      console.log("projector-projector is ready");
-    },
-    
     ironLocalStorageLoaded: function() {
       var val = this.$.storage.value;
-      console.log( "ironLocalStorageLoaded, value=" + val );
+      console.log( "projector-controller ironLocalStorageLoaded, value=" + val );
       if( !val || !val.bgFile )
         return;
       this.bgFile = val.bgFile;
@@ -123,6 +119,7 @@ Polymer({
       }
 
       var projCtr = this;
+      this.previewTitle = getTitleFromVerseSub( this.nVolume, this.startVerseSub );
       var timer = window.setInterval( function() {
           window.clearInterval( timer );
           if( !projCtr.projectorClosed ) {
