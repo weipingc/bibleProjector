@@ -1,11 +1,15 @@
 {
   "name": "Bible Projector",
   "description": "Bible Projector is a browser based tool for projecting Bible verses.",
-  "version": "0.7.2",
+  "version": "1.0",
+  "manifest_version": 2,
   "app": {
     "background": {
       "scripts": ["background.js"]
     }
   },
-  "icons": { "16": "favicon.ico", "128": "favicon.ico" }
+  "permissions": [
+      "storage"
+  ],
+  "icons": { "16": "calculator-16.png", "128": "calculator-128.png" }
 }
