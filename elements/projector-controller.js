@@ -257,16 +257,13 @@ Polymer({
           var verseNum  = nextVerse.substring( colonInd+1, spaceInd );
           var verseText = nextVerse.substring( spaceInd+1 );
           if( currChapter != nextChapter ) {
-            if( currChapter != '' )
-              verseTextBuf += '</P>';
             currChapter = nextChapter;
             verseTextBuf +=
-              '<P><b><span class="aquo">&laquo;</span>'
+              '<b><span class="aquo">&laquo;</span>'
               + getVolumeChapterText(volume, currChapter, version) + '<span class="aquo">&raquo;</span></b>&nbsp;&nbsp; ';
           }
           verseTextBuf +=  '&nbsp; <sup style="font-size:70%;">' + verseNum + '</sup> ' + verseText;
         }
-        verseTextBuf += '</P>';
       });
 
       return verseTextBuf;
