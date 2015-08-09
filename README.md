@@ -2,45 +2,38 @@ What it does:
   Bible Projector is a browser based tool for projecting Bible verses.
 
 How to run:
-  Start a browser, open the index.html file.
-  After selecting bible volume/chapter/verse, you can click one of the "Project" buttons
-  to open another browser window, the selected verses will be displayed in that window.
-  Drag the window to the secondary display of your computer which should be connected
-  to a projector.
-  Clicking the Help link (it is at right to the Preview control) will the Help window, you
-  read detailed instructions there.
+(1) Download NodeJS at https://nodejs.org/
+(2) Install NodeJS package bower - It is a JavaScript dependency manager
+    npm install -g bower
+(3) Install git from http://www.git-scm.com/
+(4) Clone source code
+    git clonehttps://github.com/weipingc/bibleProjector
+(5) Get dependencies
+    cd bibleProjector
+    bower update
+(6) Install NodeJS package polyserve - It is a web server written in NodeJS
+    npm install -g polyserve
+(7) Run polyserve to serve the Bible Projector application
+    polyserve -p 8888
+   You will see the following:
+    Starting Polyserve on port 8888
+    Files in this directory are available at localhost:8888/components/BibleProjector/...
+(8) Launch the Bible Projector application
+    Start Chrome browser
+    Go to localhost:8888/components/BibleProjector/
+
+Clicking the Help link will open the Help window, you can read detailed instructions there.
 
 System requirements:
 
   Google Chrome
-    Version 31 or newer.
-    Note: Due to Chrome's security measure, the following option needs to be added when launch Chrome:
-      --allow-file-access-from-files  (This no longer work after version 36, trying Chrome app)
-    Otherwise, you will get "Cross origin requests are only supported for HTTP" error.
-	
-	Launch as Chrome app from command line:
-	"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --load-and-launch-app=D:\Labs\bibleProjector\bibleProjector
-	Could not make this to work, 
-		Polymer.IronControlState = {
-		_disabledChanged: function(disabled, old) {
-		  this.setAttribute('aria-disabled', disabled ? 'true' : 'false');
-		  this.style.pointerEvents = disabled ? 'none' : '';
-		  if (disabled) {
-			this._oldTabIndex = this.tabIndex;
-			this.focused = false; // Uncaught TypeError: Cannot set property focused of #<paper-checkbox> which has only a getter
-			this.tabIndex = -1;
-		  } else if (this._oldTabIndex !== undefined) {
-			this.tabIndex = this._oldTabIndex;
-		  }
-		},
-
-  Mozilla FireFox
-    Version 26 or newer.
+    Version 44newer.
 
 Technical Notes:
-  Polymer(http://polymer-project.org/) is used.
+  Polymer(http://polymer-project.org/) version 1.0 is used.
 
 Credentials
   Weiping Chen(weiping.chen@gmail.com)
   This program is based on the works of Mr. Weiheng Xi, Mr. Spring (chunnan.hung@gmail.com)
   and Paul Chang(paul.cmchang@gmail.com)
+
