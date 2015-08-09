@@ -2,25 +2,27 @@ What it does:
   Bible Projector is a browser based tool for projecting Bible verses.
 
 How to run:
-(1) Download NodeJS at https://nodejs.org/
-(2) Install NodeJS package bower - It is a JavaScript dependency manager
-    npm install -g bower
-(3) Install git from http://www.git-scm.com/
-(4) Clone source code
-    git clonehttps://github.com/weipingc/bibleProjector
-(5) Get dependencies
-    cd bibleProjector
-    bower update
-(6) Install NodeJS package polyserve - It is a web server written in NodeJS
-    npm install -g polyserve
-(7) Run polyserve to serve the Bible Projector application
-    polyserve -p 8888
-   You will see the following:
-    Starting Polyserve on port 8888
-    Files in this directory are available at localhost:8888/components/BibleProjector/...
-(8) Launch the Bible Projector application
-    Start Chrome browser
-    Go to localhost:8888/components/BibleProjector/
+<ol>
+<li> Download NodeJS at https://nodejs.org/</li>
+<li> Install NodeJS package bower - It is a JavaScript dependency manager<BR/>
+    npm install -g bower</li>
+<li> Install git from http://www.git-scm.com/</li>
+<li> Clone source code<BR/>
+    git clonehttps://github.com/weipingc/bibleProjector</li>
+<li> Get dependencies<BR/>
+    cd bibleProjector<BR/>
+    bower update</li>
+<li> Install NodeJS package polyserve - It is a web server written in NodeJS<BR/>
+    npm install -g polyserve</li>
+<li> Run polyserve to serve the Bible Projector application<BR/>
+    polyserve -p 8888<BR/>
+   You will see the following:<BR/>
+    Starting Polyserve on port 8888<BR/>
+    Files in this directory are available at localhost:8888/components/BibleProjector/...</li>
+<li> Launch the Bible Projector application<BR/>
+    Start Chrome browser<BR/>
+    Go to localhost:8888/components/BibleProjector/</li>
+</ol>
 
 Clicking the Help link will open the Help window, you can read detailed instructions there.
 
