@@ -8,7 +8,7 @@ How to run:
     npm install -g bower</li>
 <li> Install git from http://www.git-scm.com/</li>
 <li> Clone source code<BR/>
-    git clonehttps://github.com/weipingc/bibleProjector</li>
+    git clone https://github.com/weipingc/bibleProjector</li>
 <li> Get dependencies<BR/>
     cd bibleProjector<BR/>
     bower update</li>
