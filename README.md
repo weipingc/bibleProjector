@@ -16,12 +16,14 @@ How to run:
     npm install -g polyserve</li>
 <li> Run polyserve to serve the Bible Projector application<BR/>
     polyserve -p 8888<BR/>
+  Or
+    ./startPolyserve.bat
    You will see the following:<BR/>
     Starting Polyserve on port 8888<BR/>
     Files in this directory are available at localhost:8888/components/BibleProjector/...</li>
 <li> Launch the Bible Projector application<BR/>
     Start Chrome browser<BR/>
-    Go to localhost:8888/components/BibleProjector/</li>
+    Go to localhost:8888/components/BibleProjector/index.html</li>
 </ol>
 
 Clicking the Help link will open the Help window, you can read detailed instructions there.
@@ -29,7 +31,7 @@ Clicking the Help link will open the Help window, you can read detailed instruct
 System requirements:
 
   Google Chrome
-    Version 44newer.
+    Version 44 or newer.
 
 Technical Notes:
   Polymer(http://polymer-project.org/) version 1.0 is used.
