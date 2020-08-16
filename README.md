@@ -42,6 +42,17 @@
 ## Technical Notes:
   Polymer(http://polymer-project.org/) version 1.0 is used.
 
+## Publish
+  ### Following this tech guide:
+      https://pages.github.com/
+  ### Create another account @github.com
+      bibleprojectorpage
+  ### Created repo
+      bibleprojectorpage.github.io
+  ### Clone the repo
+  ### Copy the deployment of bibleprojector
+  ### Commit the repo
+  
 ## Credentials
   Weiping Chen(weiping.chen@gmail.com)
   This program is based on the works of Mr. Weiheng Hsi, Mr. Spring (chunnan.hung@gmail.com)
