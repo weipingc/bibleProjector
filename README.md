@@ -1,7 +1,10 @@
 What it does:
   Bible Projector is a browser based tool for projecting Bible verses.
 
-How to run:
+How to access it:
+  In a modern browser (Chrome, Firefox, Safari), go to http://bibleprojectorpage.github.io
+  
+How to run in local:
 <ol>
 <li> Download NodeJS at https://nodejs.org/</li>
 <li> Install NodeJS package bower - It is a JavaScript dependency manager<BR/>
@@ -38,6 +41,6 @@ Technical Notes:
 
 Credentials
   Weiping Chen(weiping.chen@gmail.com)
-  This program is based on the works of Mr. Weiheng Xi, Mr. Spring (chunnan.hung@gmail.com)
+  This program is based on the works of Mr. Weiheng Hsi, Mr. Spring (chunnan.hung@gmail.com)
   and Paul Chang(paul.cmchang@gmail.com)
 
