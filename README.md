@@ -43,15 +43,17 @@
   Polymer(http://polymer-project.org/) version 1.0 is used.
 
 ## Publish
-  ### Following this tech guide:
-      https://pages.github.com/
-  ### Create another account @github.com
-      bibleprojectorpage
-  ### Created repo
-      bibleprojectorpage.github.io
-  ### Clone the repo
-  ### Copy the deployment of bibleprojector
-  ### Commit the repo
+  <ol>
+  <li>Following this tech guide:<BR/>
+    https://pages.github.com/</li>
+  <li>Create another account @github.com<BR/>
+      bibleprojectorpage</li>
+  <li>Created repo<BR/>
+      bibleprojectorpage.github.io</li>
+  <li>Clone the repo</li>
+  <li>Copy the deployment of bibleprojector</li>
+  <li>Commit the repo</li>
+  </ol>
   
 ## Credentials
   Weiping Chen(weiping.chen@gmail.com)
