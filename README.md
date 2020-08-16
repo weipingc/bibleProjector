@@ -1,7 +1,9 @@
 What it does:
+
   Bible Projector is a browser based tool for projecting Bible verses.
 
 How to access it:
+
   In a modern browser (Chrome, Firefox, Safari), go to http://bibleprojectorpage.github.io
   
 How to run in local:
