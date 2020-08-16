@@ -48,11 +48,12 @@
     https://pages.github.com/</li>
   <li>Create another account @github.com<BR/>
       bibleprojectorpage</li>
-  <li>Created repo<BR/>
+  <li>Created new repo<BR/>
       bibleprojectorpage.github.io</li>
-  <li>Clone the repo</li>
-  <li>Copy the deployment of bibleprojector</li>
-  <li>Commit the repo</li>
+  <li>Clone the new repo</li>
+  <li>Copy the deployment of this repo(weipingc/bibleprojector)</li>
+  <li>Commit the new repo</li>
+  <li>Now you can access it http://bibleprojectorpage.github.io</li>
   </ol>
   
 ## Credentials
